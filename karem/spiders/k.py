@@ -3,6 +3,38 @@ import scrapy
 from scrapy import Selector
 from scrapy_playwright.page import PageMethod
 
+
+def should_abort_request(req):
+
+    if req.resource_type == "image":
+        logging.log(logging.INFO, f"Ignoring Image {req.url}")
+        return True
+    if req.method.lower() == 'post':
+        logging.log(logging.INFO, f"Ignoring {req.method} {req.url} ")
+        return True
+
+    return False
+
+links = [
+    'https://kream.co.kr/search?tab=43',
+    'https://kream.co.kr/search?tab=44',
+    'https://kream.co.kr/search?tab=49',
+    'https://kream.co.kr/search?tab=50',
+    'https://kream.co.kr/search?tab=51',
+    'https://kream.co.kr/search?tab=63',
+    'https://kream.co.kr/search?tab=53',
+    'https://kream.co.kr/search?tab=64',
+    'https://kream.co.kr/search?tab=46',
+    'https://kream.co.kr/search?tab=54',
+    'https://kream.co.kr/search?tab=65',
+    'https://kream.co.kr/search?tab=48',
+    'https://kream.co.kr/search?tab=66',
+    'https://kream.co.kr/search?tab=55',
+
+    
+    ]
+
+
 class KSpider(scrapy.Spider):
     name = "k"
     custom_settings = {

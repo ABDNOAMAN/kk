@@ -38,8 +38,15 @@ links = [
 class KSpider(scrapy.Spider):
     name = "k"
     custom_settings = {
+        "PLAYWRIGHT_LAUNCH_OPTIONS": {
+            "proxy": {
+                "server": "proxy.scrapeops.io:5353",
+                "username": "scrapeops.headless_browser_mode=true",
+                "password": "e4ea08af-ef35-4354-885d-e75b34979a52",
+            },
+        },
          'FEEDS': {
-            'quotes.csv': {
+            'result.csv': {
                 'format': 'csv'
             }},
         #'PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT': '100000',
@@ -49,10 +56,11 @@ class KSpider(scrapy.Spider):
 
 
     def start_requests(self):
-        for link in links :
-
-            yield scrapy.Request(
-            url= link ,
+       # for link in links :
+    
+           yield scrapy.Request(
+            #url= link ,
+             url=   'https://kream.co.kr/search?tab=all',
             callback=self.parse1,
                            
                 meta=dict(

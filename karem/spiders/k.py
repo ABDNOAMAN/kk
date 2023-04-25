@@ -37,12 +37,7 @@ links = [
 class KSpider(scrapy.Spider):
     name = "k"
     custom_settings = {
-                "proxy": {
-                "server": "proxy.scrapeops.io:5353",
-                "username": "scrapeops.headless_browser_mode=true",
-                "password": "e4ea08af-ef35-4354-885d-e75b34979a52",
-            },
-        
+     
         'FEEDS': {
             'rr.csv': {
                 'format': 'csv'
@@ -54,10 +49,11 @@ class KSpider(scrapy.Spider):
 
 
     def start_requests(self):
-        for link in links :
+        #for link in links :
 
             yield scrapy.Request(
-            url= link ,
+           # url= link ,
+           url = 'https://kream.co.kr/search?tab=all',
             callback=self.parse1,
                            
                 meta=dict(

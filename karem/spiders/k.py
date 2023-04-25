@@ -34,33 +34,30 @@ links = [
     
     ]
 
-
 class KSpider(scrapy.Spider):
     name = "k"
     custom_settings = {
-        "PLAYWRIGHT_LAUNCH_OPTIONS": {
-            "proxy": {
+                "proxy": {
                 "server": "proxy.scrapeops.io:5353",
                 "username": "scrapeops.headless_browser_mode=true",
                 "password": "e4ea08af-ef35-4354-885d-e75b34979a52",
             },
-        },
-         'FEEDS': {
-            'result.csv': {
+        
+        'FEEDS': {
+            'rr.csv': {
                 'format': 'csv'
             }},
         #'PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT': '100000',
-        'PLAYWRIGHT_ABORT_REQUEST': should_abort_request
+        'PLAYWRIGHT_ABORT_REQUEST': should_abort_request ,
 
     }
 
 
     def start_requests(self):
-       # for link in links :
-    
-           yield scrapy.Request(
-            #url= link ,
-             url=   'https://kream.co.kr/search?tab=all',
+        for link in links :
+
+            yield scrapy.Request(
+            url= link ,
             callback=self.parse1,
                            
                 meta=dict(
